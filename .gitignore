@@ -6,6 +6,7 @@ hellbender.iml
 *.iml
 .gradle
 build/
+src/test/resources
 .idea/libraries/Gradle__*
 *.*~
 hellbender-engine/repos/
