@@ -164,7 +164,7 @@ public class Haplotect extends LocusWalker  {
     }
 
   public void finishChrom() {
-      //System.err.println("finish chrom");
+      System.err.println("finish chrom");
       if(currentContig==null) {
 	  return;
       }
@@ -196,8 +196,9 @@ public class Haplotect extends LocusWalker  {
 	} 
       }
       if(debug) {
-        hapcts.print(log);
-      }
+	  hapcts.print(log);
+	  
+	  }
       hapmap.put(pr, new LinkedHashMap<String, LinkedHashMap<Integer, BaseandQual> >());
     }
   }
@@ -213,7 +214,9 @@ public class Haplotect extends LocusWalker  {
         if (!calcMLE) {
 	    out.println(id+"\t"+totalSites+"\t"+informativeSites+"\t"+String.format("%.3f",meancov)+"\t"+String.format("%.1f", contamCounts)+"\t"+totalCounts+"\t"+String.format("%.4f", aveContFrac)+"\tNA\tNA");
         } else {
+	  System.err.println("Calcuating mle");
 	  PairLogLik mleCalculator=new PairLogLik(paircts, gstol, debug, log);
+	  System.err.println("Calcuating mle");
 	  mleCalculator.calcMleCI();	
 	  double mle=mleCalculator.getMle();
 	  double[] CI=mleCalculator.getCI();

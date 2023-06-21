@@ -36,7 +36,9 @@ public class HapCounter {
         String hh=c1+""+c2;
         if(haps.containsKey(hh)) {
             haps.get(hh).add(els);
-        } 
+        } //else {
+	  //  System.err.println("nohap\t"+pair+"\t"+hh);
+	//}
     }
 
     public void print() {
@@ -187,8 +189,8 @@ public class HapCounter {
                                 double sum=0.0;
                                 for(Integer err: errtype) {
                                     
-                                    sum+=(1-alpha)*probnc.get(err).get(hh)/countnc.get(err)+alpha*probc.get(err).get(hh)/countc.get(err);
-                                    sum*=errProb(err, pel);
+                                    sum+=errProb(err, pel)*((1-alpha)*probnc.get(err).get(hh)/countnc.get(err)+alpha*probc.get(err).get(hh)/countc.get(err));
+                                    //sum*=errProb(err, pel);
                                 }
                                 logprod+=Math.log(sum);
                             }
@@ -282,8 +284,8 @@ public class HapCounter {
                             for(BaseandQual[] pel: els) {
                                 double sum=0.0;
                                 for(Integer err: errtype) {
-                                    sum+=(1-alpha)*probnc.get(err).get(hh)/countnc.get(err)+alpha*probc.get(err).get(hh)/countc.get(err);
-                                    sum*=errProb(err, pel);
+                                    sum+=errProb(err, pel)*((1-alpha)*probnc.get(err).get(hh)/countnc.get(err)+alpha*probc.get(err).get(hh)/countc.get(err));
+                                    //sum*=errProb(err, pel);
                                 }
                                 prod*=sum;
                             }
@@ -305,8 +307,13 @@ public class HapCounter {
     }
     
     public static double errProb(int errtype, BaseandQual[] el) {
-        double q1=Math.pow(10, el[0].getQual()/-10.0);
-        double q2=Math.pow(10, el[1].getQual()/-10.0);
+	double eps=0.000001;
+        //double q1=Math.pow(10, el[0].getQual()/-10.0)+eps;
+        //double q2=Math.pow(10, el[1].getQual()/-10.0)+eps;
+	double q1=0;
+	//System.err.println("qual\t"+q1+'\t'+ el[0].getQual());
+	//System.err.println("qual\t"+q2+'\t'+ el[1].getQual());
+	double q2=0;
         double ret=-1;
         if(errtype==0) 
             ret=q1*q2;
